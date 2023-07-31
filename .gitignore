@@ -270,3 +270,4 @@ target/site/serenity
 
 # Sensitive user config data
 src/test/resources/user_config.yaml
+src/test/resources/message_config.yaml

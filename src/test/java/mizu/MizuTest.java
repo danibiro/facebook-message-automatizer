@@ -10,6 +10,8 @@ import org.yaml.snakeyaml.Yaml;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Map;
 
 @ExtendWith(SerenityJUnit5Extension.class)
@@ -23,22 +25,29 @@ public class MizuTest {
 
     @Test
     public void sendTextTest() {
-        String url = "https://facebook.com/messages";
-        Map<String, Object> config = readConfig("/user_config.yaml");
-        assert config != null;
-        steps.navigateTo(url);
+        String url = "https://facebook.com/";
+        Map<String, Object> userConfig = readConfig("user_config.yaml");
+        Map<String, Object> messageConfig = readConfig("message_config.yaml");
+        assert userConfig != null;
+        assert messageConfig != null;
+        steps.navigateTo(url + "login");
         steps.acceptCookies();
-        steps.loginWithCredentials(config.get("email").toString(), config.get("password").toString());
+        steps.loginWithCredentials(userConfig.get("email").toString(), userConfig.get("password").toString());
+        steps.navigateTo(url + messageConfig.get("username").toString());
+        steps.clickMessageButton(driver);
     }
 
     public static Map<String, Object> readConfig(String filename) {
-        try {
-            Yaml yaml = new Yaml();
-            FileInputStream inputStream = new FileInputStream(filename);
+        ClassLoader classLoader = MizuTest.class.getClassLoader();
+
+        Yaml yaml = new Yaml();
+        try (InputStream inputStream = classLoader.getResourceAsStream(filename)) {
             return yaml.load(inputStream);
         } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
-            return null;
+            System.out.println("File not found: " + filename);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
+        return null;
     }
 }
