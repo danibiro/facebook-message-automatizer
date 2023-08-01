@@ -39,12 +39,12 @@ public class MessageTest {
         Map<String, Object> messageConfig = readConfig("message_config.yaml");
         assert userConfig != null;
         assert messageConfig != null;
-        steps.navigateTo(url + "login");
-        steps.acceptCookies();
-        steps.loginWithCredentials(userConfig.get("email").toString(), userConfig.get("password").toString());
-        steps.navigateTo(url + messageConfig.get("username").toString());
-        steps.clickMessageButton();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
+        steps.navigateTo(url + "login");
+        steps.acceptCookies(wait);
+        steps.loginWithCredentials(wait, userConfig.get("email").toString(), userConfig.get("password").toString());
+        steps.navigateTo(url + messageConfig.get("username").toString());
+        steps.clickMessageButton(wait);
         steps.sendMessage(wait, messageConfig.get("message").toString());
     }
 

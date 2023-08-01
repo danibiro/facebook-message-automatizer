@@ -16,7 +16,8 @@ public class MessageProfilePage extends PageObject {
     @FindBy(xpath = "//div[@aria-label='Press enter to send']")
     private WebElementFacade sendMessageButton;
 
-    public void clickMessageButton() {
+    public void clickMessageButton(WebDriverWait wait) {
+        wait.until(ExpectedConditions.elementToBeClickable(messageButton));
         messageButton.click();
     }
 

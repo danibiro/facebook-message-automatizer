@@ -1,1 +1,2 @@
-gradle tasks
+cd `pwd`
+gradle test

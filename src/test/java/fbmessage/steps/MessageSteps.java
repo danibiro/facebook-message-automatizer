@@ -16,18 +16,18 @@ public class MessageSteps {
     }
 
     @Step("Accept cookies")
-    public void acceptCookies() {
-        loginPage.acceptCookies();
+    public void acceptCookies(WebDriverWait wait) {
+        loginPage.acceptCookies(wait);
     }
 
     @Step("Log in with email {0} and password")
-    public void loginWithCredentials(String email, String password) {
-        loginPage.loginWithCredentials(email, password);
+    public void loginWithCredentials(WebDriverWait wait, String email, String password) {
+        loginPage.loginWithCredentials(wait, email, password);
     }
 
     @Step("Click message button on profile")
-    public void clickMessageButton() {
-        profilePage.clickMessageButton();
+    public void clickMessageButton(WebDriverWait wait) {
+        profilePage.clickMessageButton(wait);
     }
 
     @Step("Send message")
