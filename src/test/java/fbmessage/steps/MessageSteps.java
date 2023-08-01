@@ -1,12 +1,14 @@
-package mizu;
+package fbmessage.steps;
 
+import fbmessage.pages.MessageLoginPage;
+import fbmessage.pages.MessageProfilePage;
 import net.thucydides.core.annotations.Step;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class MizuSteps {
+public class MessageSteps {
 
-    MizuLoginPage loginPage;
-    MsgProfilePage profilePage;
+    MessageLoginPage loginPage;
+    MessageProfilePage profilePage;
 
     @Step("Navigate to {0}")
     public void navigateTo(String url) {
@@ -24,7 +26,12 @@ public class MizuSteps {
     }
 
     @Step("Click message button on profile")
-    public void clickMessageButton(WebDriver driver) {
-        profilePage.clickMessageButton(driver);
+    public void clickMessageButton() {
+        profilePage.clickMessageButton();
+    }
+
+    @Step("Send message")
+    public void sendMessage(WebDriverWait wait, String message) {
+        profilePage.sendMessage(wait, message);
     }
 }

@@ -1,10 +1,10 @@
-package mizu;
+package fbmessage.pages;
 
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.support.FindBy;
 
-public class MizuLoginPage extends PageObject {
+public class MessageLoginPage extends PageObject {
 
     @FindBy(xpath = "//button[@class='_42ft _4jy0 _al66 _4jy3 _4jy1 selected _51sy']")
     private WebElementFacade acceptCookiesButton;

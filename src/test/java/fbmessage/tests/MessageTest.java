@@ -1,27 +1,29 @@
-package mizu;
+package fbmessage.tests;
 
+import fbmessage.steps.MessageSteps;
 import net.serenitybdd.junit5.SerenityJUnit5Extension;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.yaml.snakeyaml.Yaml;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.Duration;
 import java.util.Map;
 
 @ExtendWith(SerenityJUnit5Extension.class)
-public class MizuTest {
+public class MessageTest {
 
     @Managed(driver = "chrome")
     WebDriver driver;
 
     @Steps
-    MizuSteps steps;
+    MessageSteps steps;
 
     @Test
     public void sendTextTest() {
@@ -34,11 +36,13 @@ public class MizuTest {
         steps.acceptCookies();
         steps.loginWithCredentials(userConfig.get("email").toString(), userConfig.get("password").toString());
         steps.navigateTo(url + messageConfig.get("username").toString());
-        steps.clickMessageButton(driver);
+        steps.clickMessageButton();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
+        steps.sendMessage(wait, messageConfig.get("message").toString());
     }
 
     public static Map<String, Object> readConfig(String filename) {
-        ClassLoader classLoader = MizuTest.class.getClassLoader();
+        ClassLoader classLoader = MessageTest.class.getClassLoader();
 
         Yaml yaml = new Yaml();
         try (InputStream inputStream = classLoader.getResourceAsStream(filename)) {
