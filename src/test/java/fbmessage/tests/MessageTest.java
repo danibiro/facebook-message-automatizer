@@ -5,6 +5,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import net.serenitybdd.junit5.SerenityJUnit5Extension;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -60,5 +61,10 @@ public class MessageTest {
             throw new RuntimeException(e);
         }
         return null;
+    }
+
+    @AfterAll
+    public static void teardown() {
+        WebDriverManager.chromedriver().quit();
     }
 }
