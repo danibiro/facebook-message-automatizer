@@ -18,7 +18,7 @@ ext {
     junitVersion = '5.9.2'
     assertJVersion = '3.24.2'
     lombokVersion = '1.18.26'
-    logbackVersion = '1.4.6'
+    logbackVersion = '1.4.7'
 }
 
 dependencies {
@@ -28,8 +28,12 @@ dependencies {
             "org.junit.jupiter:junit-jupiter-engine:${junitVersion}",
             "org.assertj:assertj-core:${assertJVersion}",
             "org.projectlombok:lombok:${lombokVersion}",
-            "ch.qos.logback:logback-classic:${logbackVersion}",
-            'org.yaml:snakeyaml:2.0'
+
+            "org.yaml:snakeyaml:2.0"
+    testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    implementation "org.slf4j:slf4j-api:2.0.9"
+    implementation 'io.github.bonigarcia:webdrivermanager:5.6.3'
+    runtimeOnly "ch.qos.logback:logback-classic:${logbackVersion}"
 }
 
 test {

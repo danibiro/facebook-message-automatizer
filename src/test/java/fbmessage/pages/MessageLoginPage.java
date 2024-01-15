@@ -1,11 +1,13 @@
 package fbmessage.pages;
 
+import lombok.extern.slf4j.Slf4j;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+@Slf4j
 public class MessageLoginPage extends PageObject {
 
     @FindBy(xpath = "//button[@class='_42ft _4jy0 _al66 _4jy3 _4jy1 selected _51sy']")
@@ -23,6 +25,7 @@ public class MessageLoginPage extends PageObject {
     public void acceptCookies(WebDriverWait wait) {
         wait.until(ExpectedConditions.elementToBeClickable(acceptCookiesButton));
         acceptCookiesButton.click();
+        log.info("Accepted cookies");
     }
 
     public void loginWithCredentials(WebDriverWait wait, String email, String password) {
@@ -32,5 +35,6 @@ public class MessageLoginPage extends PageObject {
         passwordInput.type(password);
         wait.until(ExpectedConditions.elementToBeClickable(loginButton));
         loginButton.click();
+        log.info("Clicked on login");
     }
 }

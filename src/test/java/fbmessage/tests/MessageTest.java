@@ -2,6 +2,8 @@ package fbmessage.tests;
 
 import fbmessage.steps.MessageSteps;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.github.bonigarcia.wdm.config.DriverManagerType;
+import lombok.extern.slf4j.Slf4j;
 import net.serenitybdd.junit5.SerenityJUnit5Extension;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
@@ -19,6 +21,7 @@ import java.io.InputStream;
 import java.time.Duration;
 import java.util.Map;
 
+@Slf4j
 @ExtendWith(SerenityJUnit5Extension.class)
 public class MessageTest {
 
@@ -30,7 +33,7 @@ public class MessageTest {
 
     @BeforeAll
     public static void setup() {
-        WebDriverManager.chromedriver().setup();
+        WebDriverManager.getInstance(DriverManagerType.CHROME).setup();
     }
 
     @Test
@@ -40,6 +43,7 @@ public class MessageTest {
         Map<String, Object> messageConfig = readConfig("message_config.yaml");
         assert userConfig != null;
         assert messageConfig != null;
+        log.info("Driver started");
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(1));
         steps.navigateTo(url + "login");
         steps.acceptCookies(wait);
